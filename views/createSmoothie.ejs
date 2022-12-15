@@ -23,12 +23,14 @@
     <div class="create-blog content">
       <form class="sform" action="/createSmoothie">
         <label for="title">Smoohie title:</label>
-        <input type="text" id="title" name="title" required />
+        <input type="text" id="title" name="title" required
+        placeholder="<%=url.includes('edit') ? body.title : "" %>" />
         <label for="snippet">Smoothie snippet:</label>
-        <input type="text" id="snippet" name="snippet" required />
+        <input type="text" id="snippet" name="snippet" required placeholder="<%=url.includes('edit') ? body.snippet : "" %>"/>
         <label for="body">Smoothie body:</label>
         <label id="requiredUrl"><%=url%></label>
-        <textarea id="body" name="body" required></textarea>
+        <textarea id="body" name="body" required placeholder="<%=url.includes('edit') ? body.body : "" %>"></textarea>
+
         <% if(url.includes("edit")) { %>
         <button>Save</button>
         <% } else { %>
@@ -44,6 +46,7 @@
       const user = document.getElementById("user");
       const requiredUrl = document.getElementById("requiredUrl");
       const btn = document.querySelector("button");
+      const edit_body = document.querySelector("#edit_body");
 
       if (btn.textContent == "Add") {
         form.addEventListener("submit", async (e) => {
@@ -72,6 +75,16 @@
           }
         });
       }
+      if (btn.textContent == "Save") {
+        let title = document.getElementById("title");
+        let snippet = document.getElementById("snippet");
+        let body = document.getElementById("body");
+        // console.log(edit_body.textContent.title);
+        // title.placeholder = edit_body.title;
+        // snippet.placeholder = edit_body.snippet;
+        // body.placeholder = edit_body.body;
+      }
+
       if (btn.textContent == "Save") {
         form.addEventListener("submit", async (e) => {
           e.preventDefault();

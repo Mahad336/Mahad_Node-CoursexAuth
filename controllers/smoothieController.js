@@ -1,3 +1,4 @@
+const { json } = require("express");
 const Smoothie = require("../models/smoothie");
 
 module.exports.createSmoothie_get = (req, res) => {
@@ -43,7 +44,7 @@ module.exports.smoothie_details = (req, res) => {
   const id = req.params.id;
   Smoothie.findById(id)
     .then((result) => {
-      res.render("details", { blog: result });
+      res.render("details", { blog: result, createdBy: req.createdBy });
     })
     .catch((err) => {
       console.log(err);
@@ -61,16 +62,14 @@ module.exports.smoothie_delete = (req, res) => {
     });
 };
 
-module.exports.smoothie_edit_get = (req, res) => {
+module.exports.smoothie_edit_get = async (req, res) => {
   const id = req.params.id;
-  res.render("createSmoothie", { url: req.url });
-  // Smoothie.findByIdAndDelete(id)
-  //   .then((result) => {
-  //     res.json({ redirect: "/allRecipes" });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  // });
+  let rslt = await Smoothie.findById(id);
+
+  res.render("createSmoothie", {
+    url: req.url,
+    body: rslt,
+  });
 };
 module.exports.smoothie_edit_put = (req, res) => {
   const id = req.params.id;

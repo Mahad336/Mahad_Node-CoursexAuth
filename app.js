@@ -25,7 +25,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((result) => {
-    app.listen(3000);
+    app.listen(2000);
     console.log("connected");
   })
   .catch((err) => console.log(err));

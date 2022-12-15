@@ -32,10 +32,18 @@
         <p class="snippet"><%= smoothie.body %></p>
       </a>
       <%} }) %> <% } else { %>
-      <p>There are no blogs to display...</p>
+      <p>There are no smoothies to display...</p>
+
       <% } %>
+      <p id="noSmoothies"></p>
     </div>
 
     <footer>Copyright &copy; Blog Ninja 2020</footer>
+    <script>
+      if (!document.querySelector(".single")) {
+        document.querySelector("#noSmoothies").textContent =
+          "There are no smoothies to display...";
+      }
+    </script>
   </body>
 </html>
