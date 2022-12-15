@@ -27,8 +27,13 @@
         <label for="snippet">Smoothie snippet:</label>
         <input type="text" id="snippet" name="snippet" required />
         <label for="body">Smoothie body:</label>
+        <label id="requiredUrl"><%=url%></label>
         <textarea id="body" name="body" required></textarea>
-        <button>Add</button>
+        <% if(url.includes("edit")) { %>
+        <button>Save</button>
+        <% } else { %>
+
+        <button>Add</button> <%}%>
       </form>
     </div>
 
@@ -37,39 +42,63 @@
     <script>
       const form = document.querySelector("form");
       const user = document.getElementById("user");
+      const requiredUrl = document.getElementById("requiredUrl");
+      const btn = document.querySelector("button");
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        // get values
-        const title = form.title.value;
-        const snippet = form.snippet.value;
-        const body = form.body.value;
-        const createdBy = user.textContent;
-        try {
-          const res = await fetch("/createSmoothie", {
-            method: "POST",
-            body: JSON.stringify({
-              title,
-              snippet,
-              body,
-              createdBy,
-            }),
-            headers: { "Content-Type": "application/json" },
-          });
-          const data = await res.json();
+      if (btn.textContent == "Add") {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          // get values
+          const title = form.title.value;
+          const snippet = form.snippet.value;
+          const body = form.body.value;
+          const createdBy = user.textContent;
+          try {
+            const res = await fetch("/createSmoothie", {
+              method: "POST",
+              body: JSON.stringify({
+                title,
+                snippet,
+                body,
+                createdBy,
+              }),
+              headers: { "Content-Type": "application/json" },
+            });
+            const data = await res.json();
 
-          // console.log(data);
-          // if (data.errors) {
-          //   emailError.textContent = data.errors.email;
-          //   passwordError.textContent = data.errors.password;
-          // }
-          // if (data.user) {
-          location.assign("/");
-          // }
-        } catch (err) {
-          console.log(err);
-        }
-      });
+            location.assign("/");
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      }
+      if (btn.textContent == "Save") {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          // get values
+          const title = form.title.value;
+          const snippet = form.snippet.value;
+          const body = form.body.value;
+          const createdBy = user.textContent;
+          try {
+            const res = await fetch(`${requiredUrl.textContent.trim()}`, {
+              method: "PUT",
+              body: JSON.stringify({
+                title,
+                snippet,
+                body,
+                createdBy,
+              }),
+              headers: { "Content-Type": "application/json" },
+            });
+            const data = await res.json();
+
+            location.assign("/allRecipes");
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      }
     </script>
   </body>
 </html>

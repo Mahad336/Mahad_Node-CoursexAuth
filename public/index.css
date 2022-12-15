@@ -94,7 +94,21 @@ h3 {
     border-radius: 50%;
     padding: 8px;
 }
+.edit {
+    position: absolute;
+    top: 1px;
+    right: 70px;
+    border-radius: 50%;
+    padding: 8px;
+}
+#requiredUrl{
+    display: none;
+}
 
+.edit:hover {
+    cursor: pointer;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+}
 .delete:hover {
     cursor: pointer;
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);

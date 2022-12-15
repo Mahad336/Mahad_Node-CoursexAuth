@@ -1,0 +1,50 @@
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+
+  <body>
+    <nav>
+      <h1><a href="/">Mahad Smoothies</a></h1>
+      <ul>
+        <% if (user) { %>
+        <li>
+          Welcome, <%= (user.email).substring(0,
+          Math.min((user.email).indexOf("." ),(user.email).indexOf("@"))) %>
+        </li>
+        <li><a href="/allRecipes">All Recipes</a></li>
+        <li><a href="/myRecipes">My Recipes</a></li>
+        <li><a href="/createSmoothie">Add new Recipe</a></li>
+        <li><a href="/logout">Log out</a></li>
+        <% } else { %>
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/signup" class="btn">Sign up</a></li>
+        <% } %>
+      </ul>
+    </nav>
+
+    <div class="details content">
+      <h2><%= blog.title %></h2>
+      <div class="content">
+        <p><%= blog.body %></p>
+      </div>
+      <a
+        class="edit"
+        href="/allRecipes/<%= blog._id %>/edit"
+        data-doc="   <%= blog._id %>"
+        >Edit</a
+      >
+      <a class="delete" data-doc="<%= blog._id %>">delete</a>
+    </div>
+
+    <footer>Copyright &copy; Blog Ninja 2020</footer>
+    <script>
+      const trashcan = document.querySelector("a.delete");
+      trashcan.addEventListener("click", (e) => {
+        const endpoint = `/allRecipes/${trashcan.dataset.doc}`;
+        fetch(endpoint, { method: "DELETE" })
+          .then((response) => response.json())
+          .then((data) => (window.location.href = data.redirect))
+          .catch((err) => console.log(err));
+      });
+    </script>
+  </body>
+</html>
