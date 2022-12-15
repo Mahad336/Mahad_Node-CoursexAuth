@@ -1,0 +1,75 @@
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+
+  <body>
+    <nav>
+      <h1><a href="/">Mahad Smoothies</a></h1>
+      <ul>
+        <% if (user) { %>
+        <li>
+          Welcome,
+          <span id="user"> <%= user.email%> </span>
+        </li>
+        <li><a href="/allRecipes">All Recipes</a></li>
+        <li><a href="/myRecipes">My Recipes</a></li>
+        <li><a href="/logout">Log out</a></li>
+        <% } else { %>
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/signup" class="btn">Sign up</a></li>
+        <% } %>
+      </ul>
+    </nav>
+
+    <div class="create-blog content">
+      <form class="sform" action="/createSmoothie">
+        <label for="title">Smoohie title:</label>
+        <input type="text" id="title" name="title" required />
+        <label for="snippet">Smoothie snippet:</label>
+        <input type="text" id="snippet" name="snippet" required />
+        <label for="body">Smoothie body:</label>
+        <textarea id="body" name="body" required></textarea>
+        <button>Add</button>
+      </form>
+    </div>
+
+    <footer>Copyright &copy; Blog Ninja 2020</footer>
+
+    <script>
+      const form = document.querySelector("form");
+      const user = document.getElementById("user");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        // get values
+        const title = form.title.value;
+        const snippet = form.snippet.value;
+        const body = form.body.value;
+        const createdBy = user.textContent;
+        try {
+          const res = await fetch("/createSmoothie", {
+            method: "POST",
+            body: JSON.stringify({
+              title,
+              snippet,
+              body,
+              createdBy,
+            }),
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await res.json();
+
+          // console.log(data);
+          // if (data.errors) {
+          //   emailError.textContent = data.errors.email;
+          //   passwordError.textContent = data.errors.password;
+          // }
+          // if (data.user) {
+          location.assign("/");
+          // }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    </script>
+  </body>
+</html>

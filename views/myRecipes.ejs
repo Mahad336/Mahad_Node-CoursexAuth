@@ -1,0 +1,41 @@
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+
+  <body>
+    <nav>
+      <h1><a href="/">Mahad Smoothies</a></h1>
+      <ul>
+        <% if (user) { %>
+        <li>
+          Welcome, <%= (user.email).substring(0,
+          Math.min((user.email).indexOf("." ),(user.email).indexOf("@"))) %>
+        </li>
+        <li><a href="/allRecipes">All Recipes</a></li>
+        <li><a href="/myRecipes">My Recipes</a></li>
+        <li><a href="/createSmoothie">Add new Recipe</a></li>
+        <li><a href="/logout">Log out</a></li>
+        <% } else { %>
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/signup" class="btn">Sign up</a></li>
+        <% } %>
+      </ul>
+    </nav>
+
+    <div class="blogs content">
+      <h2>All Smoothies</h2>
+
+      <% if (smoothies.length > 0) { %> <% smoothies.forEach(smoothie => {
+      if(smoothie.createdBy.trim()==user.email) { %>
+      <a class="single" href="/allRecipes/<%= smoothie._id %>">
+        <h3 class="title"><%= smoothie.title %></h3>
+        <p class="snippet"><%= smoothie.snippet%></p>
+        <p class="snippet"><%= smoothie.body %></p>
+      </a>
+      <%} }) %> <% } else { %>
+      <p>There are no blogs to display...</p>
+      <% } %>
+    </div>
+
+    <footer>Copyright &copy; Blog Ninja 2020</footer>
+  </body>
+</html>

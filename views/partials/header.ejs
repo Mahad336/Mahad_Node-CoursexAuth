@@ -1,21 +1,30 @@
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-  <nav>
-    <h1><a href="/">Ninja Smoothies</a></h1>
-    <ul>
-      <% if (user) { %>
-        <li>Welcome, <%= user.email %></li>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <h1><a href="/">Mahad Smoothies</a></h1>
+      <ul>
+        <% if (user) { %>
+        <li>
+          Welcome, <%= (user.email).substring(0,
+          Math.min((user.email).indexOf("." ),(user.email).indexOf("@"))) %>
+        </li>
+
+        <li><a href="/myRecipes">My Recipes</a></li>
+        <li><a href="/allRecipes">All Recipes</a></li>
+        <li><a href="/createSmoothie">Add new Recipe</a></li>
         <li><a href="/logout">Log out</a></li>
-      <% } else { %>
+        <% } else { %>
+        <li><a href="/allRecipes">All Recipes</a></li>
         <li><a href="/login">Log in</a></li>
         <li><a href="/signup" class="btn">Sign up</a></li>
-      <% } %>
-    </ul>
-  </nav>
-  
+        <% } %>
+      </ul>
+    </nav>
+  </body>
+</html>
