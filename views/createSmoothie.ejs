@@ -24,12 +24,15 @@
       <form class="sform" action="/createSmoothie">
         <label for="title">Smoohie title:</label>
         <input type="text" id="title" name="title" required
-        placeholder="<%=url.includes('edit') ? body.title : "" %>" />
+        value="<%=url.includes('edit') ? body.title : "" %>" />
         <label for="snippet">Smoothie snippet:</label>
-        <input type="text" id="snippet" name="snippet" required placeholder="<%=url.includes('edit') ? body.snippet : "" %>"/>
+        <input type="text" id="snippet" name="snippet" required
+        value="<%=url.includes('edit') ? body.snippet : "" %>"/>
         <label for="body">Smoothie body:</label>
         <label id="requiredUrl"><%=url%></label>
-        <textarea id="body" name="body" required placeholder="<%=url.includes('edit') ? body.body : "" %>"></textarea>
+        <textarea id="body" name="body" required>
+<%=url.includes('edit') ? body.body : "" %> </textarea
+        >
 
         <% if(url.includes("edit")) { %>
         <button>Save</button>
