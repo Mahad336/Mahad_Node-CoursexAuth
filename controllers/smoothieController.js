@@ -18,7 +18,7 @@ module.exports.createSmoothie_post = (req, res) => {
     });
 };
 
-module.exports.allRecipes_get = (req, res) => {
+module.exports.allRecipes = (req, res) => {
   Smoothie.find()
     .sort({ createdAt: -1 })
     .then((result) => {
@@ -29,7 +29,7 @@ module.exports.allRecipes_get = (req, res) => {
     });
 };
 
-module.exports.myRecipes_get = (req, res) => {
+module.exports.myRecipes = (req, res) => {
   Smoothie.find()
     .sort({ createdAt: -1 })
     .then((result) => {
@@ -62,7 +62,7 @@ module.exports.smoothie_delete = (req, res) => {
     });
 };
 
-module.exports.smoothie_edit_get = async (req, res) => {
+module.exports.smoothie_edit = async (req, res) => {
   const id = req.params.id;
   let rslt = await Smoothie.findById(id);
 

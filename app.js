@@ -4,6 +4,7 @@ const authRoutes = require("./routes/authRoutes");
 const smoothieRoutes = require("./routes/smoothieRoutes");
 const cookieParser = require("cookie-parser");
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
+require("dotenv").config();
 
 const app = express();
 
@@ -17,15 +18,15 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 // database connection
-const dbURI =
-  "mongodb+srv://Mahad:Admin123@nodeauthmahad.idmutl2.mongodb.net/node-auth-tutorial";
+const dbURI = process.env.dbURI;
 mongoose.set("strictQuery", true);
+let port = process.env.PORT;
 mongoose
   .connect(dbURI, {
     useUnifiedTopology: true,
   })
   .then((result) => {
-    app.listen(2000);
+    app.listen(port);
     console.log("connected");
   })
   .catch((err) => console.log(err));
